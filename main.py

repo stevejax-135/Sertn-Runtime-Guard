@@ -1,0 +1,20 @@
+from core.interceptor import AgentRuntimeInterceptor
+
+def main():
+    print("Initializing Sertn-Runtime-Guard Middleware...")
+    guard = AgentRuntimeInterceptor()
+
+    # Simulating a parallel agent executing a dataset query tool call
+    agent_id = "agent_omega_07"
+    tool = "ScientificDatasetSearch"
+    params = {"query_vector": [0.45, 0.88, 0.12], "max_parallel_nodes": 1000}
+
+    try:
+        result = guard.intercept_mcp_call(agent_id, tool, params)
+        print("\n[SUCCESS] Runtime Governance Check Passed:")
+        print(result)
+    except Exception as e:
+        print(f"\n[BLOCKED] Governance Violation: {e}")
+
+if __name__ == "__main__":
+    main()
